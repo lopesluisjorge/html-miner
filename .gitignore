@@ -1,3 +1,7 @@
+*.html
+*.png
+*.jpg
+
 #
 # Standard Maven .gitignore
 #
