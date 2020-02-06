@@ -3,18 +3,22 @@ package br.edu.ifma;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MapString {
+public class MapQuotes {
 
-    private final Map<String, String> fileMap = new LinkedHashMap<>();
+    private final Map<String, Set<String>> fileMap = new LinkedHashMap<>();
 
-    public MapString addToMap(String key, String value) {
+    public MapQuotes addToMap(String key, Set<String> value) {
         fileMap.put(key, value);
 
         return  this;
     }
 
-    public String get(String key) {
-        return  fileMap.get(key);
+    public Set<String> get(String key) {
+        return fileMap.get(key);
+    }
+
+    public Set<String> keys() {
+        return  fileMap.keySet();
     }
 
     public List<String> filenames() {
@@ -29,7 +33,7 @@ public class MapString {
             '}';
     }
 
-    public Map<String, String> getAll() {
+    public Map<String, Set<String>> getAll() {
         return fileMap;
     }
 }

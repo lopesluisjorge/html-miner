@@ -19,6 +19,26 @@ public class FileUtils {
         return  buffer.toString();
     }
 
+    public static void writeFile(String dir, String filename, String content) {
+        try  {
+            File folder = new File(dir);
+            if (!folder.exists()) {
+                folder.mkdir();
+            }
+
+            File file = new File(folder.getName() + "/" + filename);
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(content);
+            writer.close();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static File[] openFolder(String urlFolder) {
         File file = new File(urlFolder);
         return file.listFiles();
