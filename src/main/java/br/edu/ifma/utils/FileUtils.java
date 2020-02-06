@@ -1,22 +1,24 @@
 package br.edu.ifma.utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class FileUtils {
 
     public static String readFile(File file) {
-        StringBuffer buffer = new StringBuffer();
-
         try (FileReader fr = new FileReader(file)) {
             BufferedReader br = new BufferedReader(fr);
-            buffer.append(br.lines().reduce((acc, actual) -> acc.concat(actual)).get());
+            return br.lines().reduce((acc, actual) -> acc.concat(actual)).get();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return  buffer.toString();
+        return null;
     }
 
     public static File[] openFolder(String urlFolder) {
