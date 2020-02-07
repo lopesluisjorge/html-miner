@@ -11,6 +11,9 @@ import java.io.IOException;
 public class FileUtils {
 
     public static String readFile(File file) {
+        if (file.isDirectory()) {
+            return null;
+        }
         try (FileReader fr = new FileReader(file)) {
             BufferedReader br = new BufferedReader(fr);
             return br.lines().reduce((acc, actual) -> acc.concat(actual)).get();
@@ -21,6 +24,19 @@ public class FileUtils {
         }
 
         return null;
+    }
+
+    public static void writeFile(String source, String target) {
+        try {
+            File folderSource = new File(source);
+            File folderTarget = new File(target);
+            if (!folderTarget.exists()) {
+                folderTarget.mkdir();
+            }
+            // TODO: copiar todos os arquivos e pastas, recursivamente da pasta de source para a pasta target
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void writeFile(String dir, String filename, String content) {
