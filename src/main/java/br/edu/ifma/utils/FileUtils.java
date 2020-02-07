@@ -1,9 +1,11 @@
 package br.edu.ifma.utils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileUtils {
@@ -20,6 +22,26 @@ public class FileUtils {
 
         return null;
     }
+
+    public static void writeFile(String dir, String filename, String content) {
+        try  {
+            File folder = new File(dir);
+            if (!folder.exists()) {
+                folder.mkdir();
+            }
+
+            File file = new File(folder.getName() + "/" + filename);
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(content);
+            writer.close();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static File[] openFolder(String urlFolder) {
         File file = new File(urlFolder);

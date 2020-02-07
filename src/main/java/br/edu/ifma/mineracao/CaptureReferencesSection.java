@@ -9,7 +9,7 @@ public class CaptureReferencesSection {
 
     public List<String> getReferenceSection(String string) {
         List<String> list = new ArrayList<>();
-        Pattern pattern = Pattern.compile("<span [a-zA-Z0-9=\":;# ]*>\\n[\\t]*Referências[ ]*\\n[\\t]*<\\/span>", Pattern.MULTILINE);
+        Pattern pattern = Pattern.compile("<span [a-zA-Z0-9=\":;# ]*>[\\r\\n\\t]*Referências[ ]*[\\r\\n\\t]*<\\/span>", Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(string);
         while(matcher.find()) {
             list.add(matcher.group(0));
