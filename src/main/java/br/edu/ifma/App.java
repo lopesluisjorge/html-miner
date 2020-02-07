@@ -1,15 +1,20 @@
 package br.edu.ifma;
 
-import br.edu.ifma.mineracao.CaptureReferencesSection;
-import br.edu.ifma.utils.FileUtils;
-import br.edu.ifma.mineracao.CaptureQuotes;
-
 import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import br.edu.ifma.mineracao.CaptureQuotes;
+import br.edu.ifma.mineracao.CaptureReferencesSection;
+import br.edu.ifma.utils.FileUtils;
+
 public final class App {
+
     private App() {
+
     }
 
     public static void main(String[] args) {
@@ -24,6 +29,7 @@ public final class App {
         MapQuotes strings = new MapQuotes();
 
         File[] wekas = FileUtils.openFolder(openDir);
+
         for (File file : wekas) {
             String fileContents = FileUtils.readFile(file);
             completeFiles.put(file.getName(), fileContents);
@@ -60,13 +66,6 @@ public final class App {
         for (String filename : filenames) {
             FileUtils.writeFile(openDir + "_2", filename, completeFiles.get(filename));
         }
-
-        //System.out.println(strings);
-        //List<String> filenames = strings.filenames();
-        //filenames.sort((a, b) -> a.compareTo(b));
-
-
-
-        //System.out.println(strings.filenames());
     }
+
 }

@@ -1,6 +1,9 @@
 package br.edu.ifma;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MapQuotes {
@@ -10,7 +13,7 @@ public class MapQuotes {
     public MapQuotes addToMap(String key, Set<String> value) {
         fileMap.put(key, value);
 
-        return  this;
+        return this;
     }
 
     public Set<String> get(String key) {
@@ -25,12 +28,9 @@ public class MapQuotes {
         return fileMap.keySet().stream().collect(Collectors.toList());
     }
 
-
     @Override
     public String toString() {
-        return "MapString{" +
-            "fileMap=" + fileMap +
-            '}';
+        return String.format("MapString{ %s }", fileMap);
     }
 
     public Map<String, Set<String>> getAll() {
