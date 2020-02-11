@@ -8,12 +8,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileUtils {
+import org.apache.commons.io.FileUtils;
+
+public class FilesUtils {
 
     public static String readFile(File file) {
-        if (file.isDirectory()) {
-            return null;
-        }
         try (FileReader fr = new FileReader(file)) {
             BufferedReader br = new BufferedReader(fr);
             return br.lines().reduce((acc, actual) -> acc.concat(actual)).get();
@@ -26,14 +25,14 @@ public class FileUtils {
         return null;
     }
 
-    public static void writeFile(String source, String target) {
+    public static void copyFiles(String source, String target) {
         try {
             File folderSource = new File(source);
             File folderTarget = new File(target);
             if (!folderTarget.exists()) {
                 folderTarget.mkdir();
             }
-            // TODO: copiar todos os arquivos e pastas, recursivamente da pasta de source para a pasta target
+            FileUtils.copyDirectory(folderSource, folderTarget);
         } catch (Exception e) {
             e.printStackTrace();
         }

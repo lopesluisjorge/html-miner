@@ -4,12 +4,13 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import br.edu.ifma.mineracao.CaptureQuotes;
 import br.edu.ifma.mineracao.CaptureReferencesSection;
-import br.edu.ifma.utils.FileUtils;
+import br.edu.ifma.utils.FilesUtils;
 
 public final class App {
 
@@ -28,11 +29,15 @@ public final class App {
         Map<String, String> completeFiles = new HashMap<>();
         MapQuotes strings = new MapQuotes();
 
-        File[] wekas = FileUtils.openFolder(openDir);
+        File[] wekas = FilesUtils.openFolder(openDir);
 
         for (File file : wekas) {
-            String fileContents = FileUtils.readFile(file);
+            String fileContents = FilesUtils.readFile(file);
+            if (Objects.isNull(fileContents)) {
+                continue;
+            }
             completeFiles.put(file.getName(), fileContents);
+
             List<String> quotes = matches.getQuotesInPage(fileContents);
             if (!quotes.isEmpty()) {
                 strings.addToMap(file.getName(), quotes.stream().collect(Collectors.toSet()));
@@ -58,13 +63,16 @@ public final class App {
         for (String page : quoteKeysPage) {
             Set<String> quotesPage = strings.get(page);
             for (String quotes : quotesPage) {
-                completeFiles.put(page, completeFiles.get(page).replace(quotes, "<a href=\""+ referencePage + "#referencePage" +"\">" + quotes + "</a>"));
+                completeFiles.put(page, completeFiles.get(page).replace(quotes,
+                        "<a href=\"" + referencePage + "#referencePage" + "\">" + quotes + "</a>"));
             }
         }
+        
+        FilesUtils.copyFiles(openDir, openDir + "_2");
 
         Set<String> filenames = completeFiles.keySet();
         for (String filename : filenames) {
-            FileUtils.writeFile(openDir + "_2", filename, completeFiles.get(filename));
+            FilesUtils.writeFile(openDir + "_2", filename, completeFiles.get(filename));
         }
     }
 
